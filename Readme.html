@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Mundial F1 2026</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #f4f4f4;
+            --accent: #e10600; /* Rojo F1 */
+            --success: #2ecc71;
+            --eliminated: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        .season-info {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .season-info p {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+        
+        .season-info p:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .selector-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        select {
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-color: #404040;
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .escuderia {
+            color: #bbb;
+            margin-top: 5px;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 15px 0;
+        }
+
+        .stat-box h3 {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .verdict {
+            padding: 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .verdict.in-contention {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .verdict.eliminated {
+            background-color: rgba(127, 140, 141, 0.15);
+            color: #95a5a6;
+            border: 1px solid rgba(127, 140, 141, 0.3);
+        }
+
+        .verdict.leader {
+            background-color: rgba(225, 6, 0, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(225, 6, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Calculadora Mundial F1</h1>
+        <p class="subtitle">Datos actualizados post-GP de Barcelona (Junio 2026)</p>
+
+        <div class="season-info">
+            <p><strong>Carreras restantes:</strong> <span id="races-left">--</span></p>
+            <p><strong>Sprints restantes:</strong> <span id="sprints-left">--</span></p>
+            <p><strong>Puntos máximos en juego:</strong> <span id="max-points-left">--</span></p>
+        </div>
+
+        <div class="selector-container">
+            <label for="driver-select">Selecciona un piloto para ver sus opciones:</label>
+            <select id="driver-select">
+                <option value="" disabled selected>Elige a tu piloto...</option>
+                <!-- Las opciones se llenarán con JavaScript -->
+            </select>
+        </div>
+
+        <div id="result-card" class="card hidden">
+            <h2 id="driver-name">Nombre del Piloto</h2>
+            <p class="escuderia" id="driver-team">Escudería</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Pts Actuales</h3>
+                    <p id="current-points" class="number">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Distancia al Líder</h3>
+                    <p id="points-behind" class="number">0</p>
+                </div>
+            </div>
+
+            <div id="verdict-container" class="verdict">
+                <!-- El veredicto matemático va aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Base de datos actual (Post-GP Barcelona 2026)
+        const championshipData = {
+            racesLeft: 15,
+            sprintsLeft: 4, 
+            leaderPoints: 156, // Puntos de Kimi Antonelli
+            drivers: [
+                { id: 'antonelli', name: 'Kimi Antonelli', team: 'Mercedes', points: 156 },
+                { id: 'hamilton', name: 'Lewis Hamilton', team: 'Ferrari', points: 115 },
+                { id: 'russell', name: 'George Russell', team: 'Mercedes', points: 106 },
+                { id: 'leclerc', name: 'Charles Leclerc', team: 'Ferrari', points: 75 },
+                { id: 'norris', name: 'Lando Norris', team: 'McLaren', points: 73 },
+                { id: 'piastri', name: 'Oscar Piastri', team: 'McLaren', points: 68 },
+                { id: 'verstappen', name: 'Max Verstappen', team: 'Red Bull Racing', points: 55 },
+                { id: 'gasly', name: 'Pierre Gasly', team: 'Alpine', points: 41 },
+                { id: 'sainz', name: 'Carlos Sainz Jr.', team: 'Williams', points: 6 },
+                { id: 'alonso', name: 'Fernando Alonso', team: 'Aston Martin', points: 1 }
+            ]
+        };
+
+        // 2. Cálculos matemáticos iniciales (Reglamento 2026 - Sin vuelta rápida)
+        const pointsPerRace = 25; 
+        const pointsPerSprint = 8;
+        const maxPointsAvailable = (championshipData.racesLeft * pointsPerRace) + (championshipData.sprintsLeft * pointsPerSprint);
+
+        // 3. Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mostrar datos globales
+            document.getElementById('races-left').textContent = championshipData.racesLeft;
+            document.getElementById('sprints-left').textContent = championshipData.sprintsLeft;
+            document.getElementById('max-points-left').textContent = maxPointsAvailable;
+
+            const selectElement = document.getElementById('driver-select');
+
+            // Llenar el select
+            championshipData.drivers.forEach(driver => {
+                const option = document.createElement('option');
+                option.value = driver.id;
+                option.textContent = `${driver.name} (${driver.points} pts)`;
+                selectElement.appendChild(option);
+            });
+
+            // 4. Listener del cambio de piloto
+            selectElement.addEventListener('change', (e) => {
+                const selectedId = e.target.value;
+                const driver = championshipData.drivers.find(d => d.id === selectedId);
+                if(driver) updateUI(driver);
+            });
+        });
+
+        // 5. Lógica para actualizar la pantalla
+        function updateUI(driver) {
+            const card = document.getElementById('result-card');
+            
+            // Pequeño truco para reiniciar la animación CSS
+            card.classList.remove('hidden');
+            card.style.animation = 'none';
+            card.offsetHeight; // trigger reflow
+            card.style.animation = null;
+
+            document.getElementById('driver-name').textContent = driver.name;
+            document.getElementById('driver-team').textContent = driver.team;
+            document.getElementById('current-points').textContent = driver.points;
+
+            const pointsBehind = championshipData.leaderPoints - driver.points;
+            document.getElementById('points-behind').textContent = pointsBehind;
+
+            const verdictContainer = document.getElementById('verdict-container');
+            verdictContainer.className = 'verdict'; // Reset clases
+
+            if (pointsBehind === 0) {
+                verdictContainer.textContent = "¡Es el líder actual del campeonato! Depende de sí mismo para ganar el título.";
+                verdictContainer.classList.add('leader');
+            } else if (pointsBehind > maxPointsAvailable) {
+                verdictContainer.innerHTML = `<strong>MATEMÁTICAMENTE ELIMINADO.</strong><br>La distancia (${pointsBehind} pts) es mayor a los puntos que quedan en juego (${maxPointsAvailable} pts).`;
+                verdictContainer.classList.add('eliminated');
+            } else {
+                const diff = maxPointsAvailable - pointsBehind;
+                verdictContainer.innerHTML = `<strong>Sigue en la pelea.</strong><br>Necesita recortar al líder una media de <strong>${(pointsBehind / championshipData.racesLeft).toFixed(1)} puntos por carrera</strong>.<br><br>Su margen de error es de solo ${diff} puntos de aquí a final de año.`;
+                verdictContainer.classList.add('in-contention');
+            }
+        }
+    </script>
+</body>
+</html>
