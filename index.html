@@ -111,6 +111,32 @@
         .hidden {
             display: none;
         }
+        
+        /* NUEVOS ESTILOS PARA LA IMAGEN DEL PILOTO */
+        .driver-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .driver-image-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent);
+            margin-bottom: 15px;
+            background-color: #111;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .driver-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center; /* Asegura que se vea la cara */
+        }
 
         h2 {
             margin: 0;
@@ -127,7 +153,7 @@
         .stats {
             display: flex;
             justify-content: space-around;
-            margin: 30px 0;
+            margin: 20px 0 30px 0;
             background: rgba(0,0,0,0.2);
             border-radius: 8px;
             padding: 15px 0;
@@ -196,8 +222,14 @@
         </div>
 
         <div id="result-card" class="card hidden">
-            <h2 id="driver-name">Nombre del Piloto</h2>
-            <p class="escuderia" id="driver-team">Escudería</p>
+            <!-- NUEVO CONTENEDOR DE PERFIL -->
+            <div class="driver-profile">
+                <div class="driver-image-container">
+                    <img id="driver-photo" class="driver-image" src="" alt="Foto del piloto">
+                </div>
+                <h2 id="driver-name">Nombre del Piloto</h2>
+                <p class="escuderia" id="driver-team">Escudería</p>
+            </div>
             
             <div class="stats">
                 <div class="stat-box">
@@ -217,22 +249,23 @@
     </div>
 
     <script>
-        // 1. Base de datos actual (Post-GP Barcelona 2026)
+        // 1. Base de datos actual (Post-GP Barcelona 2026) con URLs de imágenes
+        // Nota: Se han usado URLs de imágenes alojadas públicamente. Si alguna falla en el futuro, puedes cambiar la URL.
         const championshipData = {
             racesLeft: 15,
             sprintsLeft: 4, 
             leaderPoints: 156, // Puntos de Kimi Antonelli
             drivers: [
-                { id: 'antonelli', name: 'Kimi Antonelli', team: 'Mercedes', points: 156 },
-                { id: 'hamilton', name: 'Lewis Hamilton', team: 'Ferrari', points: 115 },
-                { id: 'russell', name: 'George Russell', team: 'Mercedes', points: 106 },
-                { id: 'leclerc', name: 'Charles Leclerc', team: 'Ferrari', points: 75 },
-                { id: 'norris', name: 'Lando Norris', team: 'McLaren', points: 73 },
-                { id: 'piastri', name: 'Oscar Piastri', team: 'McLaren', points: 68 },
-                { id: 'verstappen', name: 'Max Verstappen', team: 'Red Bull Racing', points: 55 },
-                { id: 'gasly', name: 'Pierre Gasly', team: 'Alpine', points: 41 },
-                { id: 'sainz', name: 'Carlos Sainz Jr.', team: 'Williams', points: 6 },
-                { id: 'alonso', name: 'Fernando Alonso', team: 'Aston Martin', points: 1 }
+                { id: 'antonelli', name: 'Kimi Antonelli', team: 'Mercedes', points: 156, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png' },
+                { id: 'hamilton', name: 'Lewis Hamilton', team: 'Ferrari', points: 115, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png' },
+                { id: 'russell', name: 'George Russell', team: 'Mercedes', points: 106, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png' },
+                { id: 'leclerc', name: 'Charles Leclerc', team: 'Ferrari', points: 75, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png' },
+                { id: 'norris', name: 'Lando Norris', team: 'McLaren', points: 73, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png' },
+                { id: 'piastri', name: 'Oscar Piastri', team: 'McLaren', points: 68, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png' },
+                { id: 'verstappen', name: 'Max Verstappen', team: 'Red Bull Racing', points: 55, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png' },
+                { id: 'gasly', name: 'Pierre Gasly', team: 'Alpine', points: 41, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png' },
+                { id: 'sainz', name: 'Carlos Sainz Jr.', team: 'Williams', points: 6, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png' },
+                { id: 'alonso', name: 'Fernando Alonso', team: 'Aston Martin', points: 1, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png' }
             ]
         };
 
@@ -243,14 +276,12 @@
 
         // 3. Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', () => {
-            // Mostrar datos globales
             document.getElementById('races-left').textContent = championshipData.racesLeft;
             document.getElementById('sprints-left').textContent = championshipData.sprintsLeft;
             document.getElementById('max-points-left').textContent = maxPointsAvailable;
 
             const selectElement = document.getElementById('driver-select');
 
-            // Llenar el select
             championshipData.drivers.forEach(driver => {
                 const option = document.createElement('option');
                 option.value = driver.id;
@@ -258,7 +289,6 @@
                 selectElement.appendChild(option);
             });
 
-            // 4. Listener del cambio de piloto
             selectElement.addEventListener('change', (e) => {
                 const selectedId = e.target.value;
                 const driver = championshipData.drivers.find(d => d.id === selectedId);
@@ -270,15 +300,21 @@
         function updateUI(driver) {
             const card = document.getElementById('result-card');
             
-            // Pequeño truco para reiniciar la animación CSS
+            // Reiniciar animación CSS
             card.classList.remove('hidden');
             card.style.animation = 'none';
             card.offsetHeight; // trigger reflow
             card.style.animation = null;
 
+            // Actualizar textos e imagen
             document.getElementById('driver-name').textContent = driver.name;
             document.getElementById('driver-team').textContent = driver.team;
             document.getElementById('current-points').textContent = driver.points;
+            
+            // NUEVO: Actualizar la foto
+            const photoEl = document.getElementById('driver-photo');
+            photoEl.src = driver.imageUrl;
+            photoEl.alt = `Foto de ${driver.name}`;
 
             const pointsBehind = championshipData.leaderPoints - driver.points;
             document.getElementById('points-behind').textContent = pointsBehind;
