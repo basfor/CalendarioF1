@@ -12,6 +12,7 @@
             --accent: #e10600; /* Rojo F1 */
             --success: #2ecc71;
             --eliminated: #7f8c8d;
+            --info-bg: #34495e;
         }
 
         body {
@@ -48,7 +49,7 @@
             background-color: var(--card-bg);
             padding: 15px 20px;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-left: 4px solid var(--accent);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
@@ -64,6 +65,86 @@
         .season-info p:last-child {
             border-bottom: none;
             padding-bottom: 0;
+        }
+
+        /* NUEVO: ESTILOS PARA EL PRÓXIMO GP */
+        .next-gp-card {
+            background: linear-gradient(145deg, #2a2a2a, #222);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .next-gp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        .next-gp-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gp-flag {
+            font-size: 1.5em;
+        }
+
+        .chile-time-badge {
+            background-color: var(--info-bg);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .session-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .session-item:nth-child(even) {
+            background-color: rgba(255,255,255,0.02);
+            border-radius: 4px;
+            padding: 8px 5px;
+            margin: 0 -5px;
+        }
+
+        .session-name {
+            color: #bbb;
+            font-weight: 500;
+        }
+
+        .session-time {
+            color: var(--text-color);
+            font-weight: 600;
+            display: flex;
+            gap: 10px;
+        }
+
+        .session-date {
+            color: #888;
+            font-size: 0.9em;
         }
 
         .selector-container {
@@ -112,7 +193,6 @@
             display: none;
         }
         
-        /* NUEVOS ESTILOS PARA LA IMAGEN DEL PILOTO */
         .driver-profile {
             display: flex;
             flex-direction: column;
@@ -125,17 +205,18 @@
             height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid var(--accent);
+            border: 4px solid #444; 
             margin-bottom: 15px;
             background-color: #111;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         .driver-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top center; /* Asegura que se vea la cara */
+            object-position: top center;
         }
 
         h2 {
@@ -145,15 +226,31 @@
 
         .escuderia {
             color: #bbb;
-            margin-top: 5px;
+            margin: 5px 0 0 0;
             font-style: italic;
             font-size: 1.1em;
+        }
+
+        .career-info {
+            color: #888;
+            font-size: 0.9em;
+            margin: 8px 0 10px 0;
+            font-weight: 500;
+            background: rgba(0,0,0,0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .career-info span {
+            color: var(--text-color);
+            font-weight: bold;
         }
 
         .stats {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0 30px 0;
+            margin: 15px 0 30px 0;
             background: rgba(0,0,0,0.2);
             border-radius: 8px;
             padding: 15px 0;
@@ -173,6 +270,7 @@
             font-weight: bold;
             color: var(--accent);
             margin: 0;
+            transition: color 0.4s ease;
         }
 
         .verdict {
@@ -200,6 +298,62 @@
             color: #ff6b6b;
             border: 1px solid rgba(225, 6, 0, 0.3);
         }
+
+        .components-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-title {
+            font-size: 0.85em;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .components-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .component-card {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px 10px;
+            min-width: 75px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.3s;
+        }
+
+        .comp-icon {
+            width: 26px;
+            height: 26px;
+            fill: #bbb;
+            margin-bottom: 8px;
+        }
+
+        .comp-name {
+            font-size: 0.7em;
+            color: #888;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .comp-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .comp-value.warning { color: #f39c12; } 
+        .comp-value.danger { color: #e74c3c; } 
     </style>
 </head>
 <body>
@@ -213,21 +367,35 @@
             <p><strong>Puntos máximos en juego:</strong> <span id="max-points-left">--</span></p>
         </div>
 
+        <!-- NUEVA SECCIÓN: PRÓXIMO GP -->
+        <div class="next-gp-card">
+            <div class="next-gp-header">
+                <h3 id="gp-title"><span class="gp-flag" id="gp-flag">🇦🇹</span> Próximo GP</h3>
+                <span class="chile-time-badge">HORA CHILE (UTC-4)</span>
+            </div>
+            <ul class="session-list" id="gp-sessions">
+                <!-- Las sesiones se inyectarán con JS -->
+            </ul>
+        </div>
+
         <div class="selector-container">
             <label for="driver-select">Selecciona un piloto para ver sus opciones:</label>
             <select id="driver-select">
                 <option value="" disabled selected>Elige a tu piloto...</option>
-                <!-- Las opciones se llenarán con JavaScript -->
             </select>
         </div>
 
         <div id="result-card" class="card hidden">
-            <!-- NUEVO CONTENEDOR DE PERFIL -->
             <div class="driver-profile">
-                <div class="driver-image-container">
+                <div id="image-wrapper" class="driver-image-container">
                     <img id="driver-photo" class="driver-image" src="" alt="Foto del piloto">
                 </div>
                 <h2 id="driver-name">Nombre del Piloto</h2>
+                
+                <p class="career-info">
+                    🏆 <span id="driver-wins">0</span> Victorias | ⏱️ <span id="driver-seasons">0</span> Temporadas
+                </p>
+                
                 <p class="escuderia" id="driver-team">Escudería</p>
             </div>
             
@@ -242,46 +410,80 @@
                 </div>
             </div>
 
-            <div id="verdict-container" class="verdict">
-                <!-- El veredicto matemático va aquí -->
+            <div id="verdict-container" class="verdict"></div>
+
+            <div class="components-section">
+                <h3 class="section-title">Componentes Restantes Disp.</h3>
+                <div id="components-grid" class="components-grid"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. Base de datos actual (Post-GP Barcelona 2026) con URLs de imágenes
-        // Nota: Se han usado URLs de imágenes alojadas públicamente. Si alguna falla en el futuro, puedes cambiar la URL.
+        // 1. Base de datos actual
         const championshipData = {
             racesLeft: 15,
             sprintsLeft: 4, 
-            leaderPoints: 156, // Puntos de Kimi Antonelli
+            leaderPoints: 156, 
+            
+            // NUEVA SECCIÓN: DATOS DEL PRÓXIMO GP (Manual y fácil de editar)
+            nextGrandPrix: {
+                name: "Gran Premio de Austria",
+                circuit: "Red Bull Ring",
+                flag: "🇦🇹",
+                sessions: [
+                    { name: "Práctica Libre 1", date: "Vie 26 Jun", time: "06:30" },
+                    { name: "Clasificación Sprint", date: "Vie 26 Jun", time: "10:30" },
+                    { name: "Carrera Sprint", date: "Sáb 27 Jun", time: "06:00" },
+                    { name: "Clasificación", date: "Sáb 27 Jun", time: "10:00" },
+                    { name: "Carrera", date: "Dom 28 Jun", time: "09:00" }
+                ]
+            },
+
             drivers: [
-                { id: 'antonelli', name: 'Kimi Antonelli', team: 'Mercedes', points: 156, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png' },
-                { id: 'hamilton', name: 'Lewis Hamilton', team: 'Ferrari', points: 115, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png' },
-                { id: 'russell', name: 'George Russell', team: 'Mercedes', points: 106, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png' },
-                { id: 'leclerc', name: 'Charles Leclerc', team: 'Ferrari', points: 75, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png' },
-                { id: 'norris', name: 'Lando Norris', team: 'McLaren', points: 73, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png' },
-                { id: 'piastri', name: 'Oscar Piastri', team: 'McLaren', points: 68, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png' },
-                { id: 'verstappen', name: 'Max Verstappen', team: 'Red Bull Racing', points: 55, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png' },
-                { id: 'gasly', name: 'Pierre Gasly', team: 'Alpine', points: 41, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png' },
-                { id: 'sainz', name: 'Carlos Sainz Jr.', team: 'Williams', points: 6, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png' },
-                { id: 'alonso', name: 'Fernando Alonso', team: 'Aston Martin', points: 1, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png' }
+                { id: 'antonelli', name: 'Kimi Antonelli', team: 'Mercedes', points: 156, wins: 4, seasons: 2, imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Kimi_Antonelli_at_the_2025_US_Grand_Prix_in_Austin%2C_TX_%28cropped%29.jpg/424px-Kimi_Antonelli_at_the_2025_US_Grand_Prix_in_Austin%2C_TX_%28cropped%29.jpg', teamColor: '#00D7B6', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 3, limit: 5 } } },
+                { id: 'hamilton', name: 'Lewis Hamilton', team: 'Ferrari', points: 115, wins: 106, seasons: 20, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png', teamColor: '#ED1131', components: { motor: { used: 3, limit: 4 }, turbo: { used: 3, limit: 4 }, bateria: { used: 2, limit: 2 }, caja: { used: 2, limit: 5 } } },
+                { id: 'russell', name: 'George Russell', team: 'Mercedes', points: 106, wins: 4, seasons: 8, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png', teamColor: '#00D7B6', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 3, limit: 5 } } },
+                { id: 'leclerc', name: 'Charles Leclerc', team: 'Ferrari', points: 75, wins: 9, seasons: 9, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png', teamColor: '#ED1131', components: { motor: { used: 4, limit: 4 }, turbo: { used: 3, limit: 4 }, bateria: { used: 2, limit: 2 }, caja: { used: 4, limit: 5 } } },
+                { id: 'norris', name: 'Lando Norris', team: 'McLaren', points: 73, wins: 4, seasons: 8, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png', teamColor: '#F47600', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 2, limit: 5 } } },
+                { id: 'piastri', name: 'Oscar Piastri', team: 'McLaren', points: 68, wins: 2, seasons: 4, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png', teamColor: '#F47600', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 2, limit: 5 } } },
+                { id: 'verstappen', name: 'Max Verstappen', team: 'Red Bull Racing', points: 55, wins: 65, seasons: 12, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png', teamColor: '#4781D7', components: { motor: { used: 3, limit: 4 }, turbo: { used: 4, limit: 4 }, bateria: { used: 2, limit: 2 }, caja: { used: 4, limit: 5 } } },
+                { id: 'gasly', name: 'Pierre Gasly', team: 'Alpine', points: 41, wins: 1, seasons: 10, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png', teamColor: '#00A1E8', components: { motor: { used: 3, limit: 4 }, turbo: { used: 3, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 3, limit: 5 } } },
+                { id: 'sainz', name: 'Carlos Sainz Jr.', team: 'Williams', points: 6, wins: 4, seasons: 12, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png', teamColor: '#1868DB', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 2, limit: 5 } } },
+                { id: 'alonso', name: 'Fernando Alonso', team: 'Aston Martin', points: 1, wins: 32, seasons: 23, imageUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png', teamColor: '#229971', components: { motor: { used: 2, limit: 4 }, turbo: { used: 2, limit: 4 }, bateria: { used: 1, limit: 2 }, caja: { used: 2, limit: 5 } } }
             ]
         };
 
-        // 2. Cálculos matemáticos iniciales (Reglamento 2026 - Sin vuelta rápida)
         const pointsPerRace = 25; 
         const pointsPerSprint = 8;
         const maxPointsAvailable = (championshipData.racesLeft * pointsPerRace) + (championshipData.sprintsLeft * pointsPerSprint);
 
-        // 3. Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', () => {
+            // Cargar info de temporada
             document.getElementById('races-left').textContent = championshipData.racesLeft;
             document.getElementById('sprints-left').textContent = championshipData.sprintsLeft;
             document.getElementById('max-points-left').textContent = maxPointsAvailable;
 
-            const selectElement = document.getElementById('driver-select');
+            // Cargar info del Próximo GP
+            const gp = championshipData.nextGrandPrix;
+            document.getElementById('gp-title').innerHTML = `<span class="gp-flag">${gp.flag}</span> ${gp.name}`;
+            
+            const sessionsContainer = document.getElementById('gp-sessions');
+            gp.sessions.forEach(session => {
+                const li = document.createElement('li');
+                li.className = 'session-item';
+                li.innerHTML = `
+                    <span class="session-name">${session.name}</span>
+                    <span class="session-time">
+                        <span class="session-date">${session.date}</span>
+                        <span>${session.time}</span>
+                    </span>
+                `;
+                sessionsContainer.appendChild(li);
+            });
 
+            // Cargar selector de pilotos
+            const selectElement = document.getElementById('driver-select');
             championshipData.drivers.forEach(driver => {
                 const option = document.createElement('option');
                 option.value = driver.id;
@@ -296,31 +498,37 @@
             });
         });
 
-        // 5. Lógica para actualizar la pantalla
         function updateUI(driver) {
             const card = document.getElementById('result-card');
             
-            // Reiniciar animación CSS
             card.classList.remove('hidden');
             card.style.animation = 'none';
-            card.offsetHeight; // trigger reflow
+            card.offsetHeight; 
             card.style.animation = null;
 
-            // Actualizar textos e imagen
             document.getElementById('driver-name').textContent = driver.name;
             document.getElementById('driver-team').textContent = driver.team;
             document.getElementById('current-points').textContent = driver.points;
             
-            // NUEVO: Actualizar la foto
+            document.getElementById('driver-wins').textContent = driver.wins;
+            document.getElementById('driver-seasons').textContent = driver.seasons;
+            
             const photoEl = document.getElementById('driver-photo');
             photoEl.src = driver.imageUrl;
             photoEl.alt = `Foto de ${driver.name}`;
+
+            const imageWrapper = document.getElementById('image-wrapper');
+            imageWrapper.style.borderColor = driver.teamColor;
+            imageWrapper.style.boxShadow = `0 10px 25px ${driver.teamColor}66`;
+
+            document.getElementById('current-points').style.color = driver.teamColor;
+            document.getElementById('points-behind').style.color = driver.teamColor;
 
             const pointsBehind = championshipData.leaderPoints - driver.points;
             document.getElementById('points-behind').textContent = pointsBehind;
 
             const verdictContainer = document.getElementById('verdict-container');
-            verdictContainer.className = 'verdict'; // Reset clases
+            verdictContainer.className = 'verdict'; 
 
             if (pointsBehind === 0) {
                 verdictContainer.textContent = "¡Es el líder actual del campeonato! Depende de sí mismo para ganar el título.";
@@ -332,6 +540,44 @@
                 const diff = maxPointsAvailable - pointsBehind;
                 verdictContainer.innerHTML = `<strong>Sigue en la pelea.</strong><br>Necesita recortar al líder una media de <strong>${(pointsBehind / championshipData.racesLeft).toFixed(1)} puntos por carrera</strong>.<br><br>Su margen de error es de solo ${diff} puntos de aquí a final de año.`;
                 verdictContainer.classList.add('in-contention');
+            }
+
+            renderComponents(driver);
+        }
+
+        function renderComponents(driver) {
+            const grid = document.getElementById('components-grid');
+            grid.innerHTML = ''; 
+
+            if(!driver.components) return;
+
+            const icons = {
+                motor: '<svg class="comp-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-14h2v5h-2zm0 6h2v6h-2z"/></svg>',
+                turbo: '<svg class="comp-icon" viewBox="0 0 24 24"><path d="M12 2.02c-5.51 0-9.98 4.47-9.98 9.98s4.47 9.98 9.98 9.98 9.98-4.47 9.98-9.98S17.51 2.02 12 2.02zM11.48 20v-6.26l-4.42 4.42c-1.39-2.02-1.74-4.66-.75-6.99L11.48 16V9.74l4.42-4.42c1.39 2.02 1.74 4.66.75 6.99L11.48 8v6.26l-4.42 4.42z"/></svg>',
+                bateria: '<svg class="comp-icon" viewBox="0 0 24 24"><path d="M16 4h-2V2h-4v2H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 10h-2v2h-2v-2H9v-2h2v-2h2v2h2v2z"/></svg>',
+                caja: '<svg class="comp-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41L9.25 5.35C8.66 5.59 8.12 5.92 7.63 6.29L5.24 5.33c-.22-.08-.47 0-.59.22L2.73 8.87c-.11.2-.06.47.12.61l2.03 1.58c-.04.3-.06.62-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>'
+            };
+
+            const labels = { motor: 'MOTOR', turbo: 'TURBO', bateria: 'BATERÍA', caja: 'CAJA' };
+
+            for (let key in driver.components) {
+                const comp = driver.components[key];
+                const available = comp.limit - comp.used;
+                
+                let colorClass = '';
+                if (available === 1) colorClass = 'warning'; 
+                if (available <= 0) colorClass = 'danger'; 
+
+                const textValue = `${Math.max(0, available)}/${comp.limit}`;
+
+                const cardHtml = `
+                    <div class="component-card">
+                        ${icons[key]}
+                        <span class="comp-name">${labels[key]}</span>
+                        <span class="comp-value ${colorClass}">${textValue}</span>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHtml);
             }
         }
     </script>
